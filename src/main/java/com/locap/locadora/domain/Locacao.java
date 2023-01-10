@@ -26,7 +26,6 @@ public class Locacao implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataDevolucao;
 
-    private Categoria categoria;
     private Status status;
 
     @ManyToOne
@@ -44,16 +43,14 @@ public class Locacao implements Serializable {
     public Locacao() {
     }
 
-    public Locacao(Integer id, LocalDateTime dataInicio, LocalDateTime dataFim, Categoria categoria, Status status, Cliente cliente, Vendedor vendedor, Veiculo veiculo, Fatura fatura) {
+    public Locacao(Integer id, LocalDateTime dataInicio, LocalDateTime dataFim, Status status, Cliente cliente, Vendedor vendedor, Veiculo veiculo) {
         this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
-        this.categoria = categoria;
         this.status = status;
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.veiculo = veiculo;
-        this.fatura = fatura;
     }
 
     public Integer getId() {
@@ -94,14 +91,6 @@ public class Locacao implements Serializable {
 
     public void setDataDevolucao(LocalDateTime dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
     }
 
     public Status getStatus() {

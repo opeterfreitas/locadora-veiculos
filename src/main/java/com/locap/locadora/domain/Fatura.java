@@ -1,9 +1,6 @@
 package com.locap.locadora.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,13 +15,17 @@ public class Fatura implements Serializable {
     private Double pagamentoBasico;
     private Double taxa;
 
+    @OneToOne
+    private Locacao locacao;
+
     public Fatura() {
     }
 
-    public Fatura(Integer id, Double pagamentoBasico, Double taxa) {
+    public Fatura(Integer id, Double pagamentoBasico, Double taxa, Locacao locacao) {
         this.id = id;
         this.pagamentoBasico = pagamentoBasico;
         this.taxa = taxa;
+        this.locacao = locacao;
     }
 
     public Integer getId() {
