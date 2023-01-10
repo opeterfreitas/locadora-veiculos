@@ -1,4 +1,4 @@
-package domain.enums;
+package com.locap.locadora.domain.enums;
 
 public enum Categoria {
 

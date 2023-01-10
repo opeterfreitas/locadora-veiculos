@@ -1,15 +1,15 @@
-package domain.enums;
+package com.locap.locadora.domain.enums;
 
-public enum Perfil {
+public enum Status {
 
-    ADMIN(0, "ROLE_ADMIN"),
-    CLIENTE(1, "ROLE_CLIENTE"),
-    VENDEDOR(2, "ROLE_VENDEDOR");
+    ANDAMENTO(0, "ANDAMENTO"),
+    ATRASADO(1, "ATRASADO"),
+    DEVOLVIDO(2, "DEVOLVIDO");
 
     private Integer codigo;
     private String descricao;
 
-    Perfil(Integer codigo, String descricao) {
+    Status(Integer codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
@@ -22,15 +22,15 @@ public enum Perfil {
         return descricao;
     }
 
-    public static Perfil toEnum(Integer cod) {
+    public static Status toEnum(Integer cod) {
         if (cod == null) {
             return null;
         }
-        for (Perfil x : Perfil.values()) {
+        for (Status x : Status.values()) {
             if (cod.equals(x.getCodigo())) {
                 return x;
             }
         }
-        throw new IllegalArgumentException("Perfil inválido");
+        throw new IllegalArgumentException("Status inválido");
     }
 }
