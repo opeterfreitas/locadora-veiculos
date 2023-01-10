@@ -56,7 +56,7 @@ public class DBService {
         Locacao l5 = new Locacao(null, LocalDateTime.parse("02/01/2023 08:00", formatter), LocalDateTime.parse("07/01/2023 12:00", formatter), Status.DEVOLVIDO, c5, v5, vc5);
 
         Fatura f1 = new Fatura(null, 450.0, 20.0, l5);
-        
+
         pessoaRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, c1, c2, c3, c4, c5));
         veiculoRepository.saveAll(Arrays.asList(vc1, vc2, vc3, vc4, vc5));
         locacaoRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));
