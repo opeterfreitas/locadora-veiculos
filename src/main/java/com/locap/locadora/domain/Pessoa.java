@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -35,8 +36,8 @@ public abstract class Pessoa implements Serializable {
     @CollectionTable(name = "PERFIS")
     protected Set<Integer> perfis = new HashSet<>();
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    protected LocalDate dataCriacao = LocalDate.now();
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    protected LocalDateTime dataCriacao = LocalDateTime.now();
 
     public Pessoa() {
         addPerfil(Perfil.CLIENTE);
@@ -99,11 +100,11 @@ public abstract class Pessoa implements Serializable {
         this.perfis.add(perfil.getCodigo());
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 

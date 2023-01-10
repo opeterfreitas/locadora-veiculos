@@ -1,10 +1,7 @@
 package com.locap.locadora.domain;
 
 import com.locap.locadora.domain.enums.Categoria;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +20,7 @@ public class Veiculo implements Serializable {
     private Double precoPorDia;
     private Double precoPorHora;
 
+    @OneToMany(mappedBy = "veiculo")
     private List<Locacao> locacoes = new ArrayList<>();
 
     public Veiculo() {

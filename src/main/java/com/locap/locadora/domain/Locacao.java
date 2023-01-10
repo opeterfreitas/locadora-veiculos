@@ -1,11 +1,9 @@
 package com.locap.locadora.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.enums.Categoria;
 import com.locap.locadora.domain.enums.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,17 +17,28 @@ public class Locacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDateTime dataReserva = LocalDateTime.now();
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime dataCriacaoReserva = LocalDateTime.now();
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataInicio;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFim;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataDevolucao;
 
     private Categoria categoria;
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
     private Vendedor vendedor;
+    @ManyToOne
+    @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
+    @OneToOne
     private Fatura fatura;
 
     public Locacao() {
@@ -55,12 +64,12 @@ public class Locacao implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getDataReserva() {
-        return dataReserva;
+    public LocalDateTime getDataCriacaoReserva() {
+        return dataCriacaoReserva;
     }
 
-    public void setDataReserva(LocalDateTime dataReserva) {
-        this.dataReserva = dataReserva;
+    public void setDataCriacaoReserva(LocalDateTime dataCriacaoReserva) {
+        this.dataCriacaoReserva = dataCriacaoReserva;
     }
 
     public LocalDateTime getDataInicio() {
