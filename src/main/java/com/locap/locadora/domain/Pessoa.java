@@ -22,6 +22,14 @@ public abstract class Pessoa implements Serializable {
     protected Integer id;
     protected String nome;
 
+    protected String cep;
+    protected String logradouro;
+    protected String numero;
+    protected String complemento;
+    protected String bairro;
+    protected String localidade;
+    protected String uf;
+
     @CPF
     @Column(unique = true)
     protected String cpf;
@@ -41,9 +49,16 @@ public abstract class Pessoa implements Serializable {
     public Pessoa() {
     }
 
-    public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
+    public Pessoa(Integer id, String nome, String cep, String logradouro, String numero, String complemento, String bairro, String localidade, String uf, String cpf, String email, String senha) {
         this.id = id;
         this.nome = nome;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.localidade = localidade;
+        this.uf = uf;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
@@ -63,6 +78,62 @@ public abstract class Pessoa implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    public void setLocalidade(String localidade) {
+        this.localidade = localidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
     public String getCpf() {

@@ -20,8 +20,8 @@ public class Vendedor extends Pessoa {
         addPerfil(Perfil.VENDEDOR);
     }
 
-    public Vendedor(Integer id, String nome, String cpf, String email, String senha) {
-        super(id, nome, cpf, email, senha);
+    public Vendedor(Integer id, String nome, String cep, String logradouro, String numero, String complemento, String bairro, String localidade, String uf, String cpf, String email, String senha) {
+        super(id, nome, cep, logradouro, numero, complemento, bairro, localidade, uf, cpf, email, senha);
         addPerfil(Perfil.VENDEDOR);
     }
 

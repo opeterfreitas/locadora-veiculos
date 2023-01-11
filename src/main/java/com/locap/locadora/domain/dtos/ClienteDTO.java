@@ -15,6 +15,13 @@ public class ClienteDTO implements Serializable {
 
     private Integer id;
     private String nome;
+    private String cep;
+    private String logradouro;
+    private String numero;
+    private String complemento;
+    private String bairro;
+    private String localidade;
+    private String uf;
     private String cpf;
     private String email;
     private String senha;
@@ -24,16 +31,25 @@ public class ClienteDTO implements Serializable {
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
     public ClienteDTO() {
+        addPerfil(Perfil.CLIENTE);
     }
 
     public ClienteDTO(Cliente obj) {
         this.id = obj.getId();
         this.nome = obj.getNome();
+        this.cep = obj.getCep();
+        this.logradouro = obj.getLogradouro();
+        this.numero = obj.getNumero();
+        this.complemento = obj.getComplemento();
+        this.bairro = obj.getBairro();
+        this.localidade = obj.getLocalidade();
+        this.uf = obj.getUf();
         this.cpf = obj.getCpf();
         this.email = obj.getEmail();
         this.senha = obj.getSenha();
         this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
         this.dataCriacao = obj.getDataCriacao();
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Integer getId() {
@@ -50,6 +66,62 @@ public class ClienteDTO implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    public void setLocalidade(String localidade) {
+        this.localidade = localidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
     public String getCpf() {
