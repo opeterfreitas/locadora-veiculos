@@ -3,6 +3,7 @@ package com.locap.locadora.domain.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.Cliente;
 import com.locap.locadora.domain.enums.Perfil;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,16 +15,22 @@ public class ClienteDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+    @NotNull(message = "O campo NOME é requerido")
     private String nome;
+    @NotNull(message = "O campo CEP é requerido")
     private String cep;
     private String logradouro;
+    @NotNull(message = "O campo NUMERO é requerido")
     private String numero;
     private String complemento;
     private String bairro;
     private String localidade;
     private String uf;
+    @NotNull(message = "O campo CPF é requerido")
     private String cpf;
+    @NotNull(message = "O campo EMAIL é requerido")
     private String email;
+    @NotNull(message = "O campo SENHA é requerido")
     private String senha;
     private Set<Integer> perfis = new HashSet<>();
 
