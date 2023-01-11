@@ -1,9 +1,12 @@
 package com.locap.locadora.services;
 
 import com.locap.locadora.domain.Cliente;
+import com.locap.locadora.domain.Pessoa;
 import com.locap.locadora.domain.dtos.CepDTO;
 import com.locap.locadora.domain.dtos.ClienteDTO;
 import com.locap.locadora.repositories.ClienteRepository;
+import com.locap.locadora.repositories.PessoaRepository;
+import com.locap.locadora.services.exceptions.DataIntegrityViolationException;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository repository;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     public Cliente findById(Integer id) {
         Optional<Cliente> obj = repository.findById(id);
@@ -29,6 +34,7 @@ public class ClienteService {
 
     public Cliente create(ClienteDTO objDTO) {
         objDTO.setId(null);
+        validaPorCpfEEmail(objDTO);
 
         CepDTO cepDTO = consultaCep(objDTO.getCep());
 
@@ -39,6 +45,17 @@ public class ClienteService {
 
         Cliente newObj = new Cliente(objDTO);
         return repository.save(newObj);
+    }
+
+    private void validaPorCpfEEmail(ClienteDTO objDTO) {
+        Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
+        if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+            throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
+        }
+        obj = pessoaRepository.findByEmail(objDTO.getEmail());
+        if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+            throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
+        }
     }
 
     public CepDTO consultaCep(String cep) {
