@@ -1,5 +1,6 @@
 package com.locap.locadora.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.locap.locadora.domain.enums.Categoria;
 import jakarta.persistence.*;
 
@@ -20,6 +21,7 @@ public class Veiculo implements Serializable {
     private Double precoPorDia;
     private Double precoPorHora;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "veiculo")
     private List<Locacao> locacoes = new ArrayList<>();
 

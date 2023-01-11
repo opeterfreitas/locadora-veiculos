@@ -17,12 +17,12 @@ public class Vendedor extends Pessoa {
     private List<Locacao> locacoes = new ArrayList<>();
 
     public Vendedor() {
-        addPerfil(Perfil.CLIENTE);
+        addPerfil(Perfil.VENDEDOR);
     }
 
     public Vendedor(Integer id, String nome, String cpf, String email, String senha) {
         super(id, nome, cpf, email, senha);
-        addPerfil(Perfil.CLIENTE);
+        addPerfil(Perfil.VENDEDOR);
     }
 
     public List<Locacao> getLocacoes() {

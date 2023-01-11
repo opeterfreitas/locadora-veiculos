@@ -1,6 +1,7 @@
 package com.locap.locadora.resources;
 
 import com.locap.locadora.domain.Cliente;
+import com.locap.locadora.domain.dtos.ClienteDTO;
 import com.locap.locadora.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class ClienteResource {
     private ClienteService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> findById(@PathVariable Integer id){
+    public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
         Cliente obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(new ClienteDTO(obj));
     }
 }
