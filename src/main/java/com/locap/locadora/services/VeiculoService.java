@@ -2,7 +2,6 @@ package com.locap.locadora.services;
 
 import com.locap.locadora.domain.Veiculo;
 import com.locap.locadora.domain.dtos.VeiculoDTO;
-import com.locap.locadora.repositories.PessoaRepository;
 import com.locap.locadora.repositories.VeiculoRepository;
 import com.locap.locadora.services.exceptions.DataIntegrityViolationException;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
@@ -17,8 +16,6 @@ public class VeiculoService {
 
     @Autowired
     private VeiculoRepository repository;
-    @Autowired
-    private PessoaRepository pessoaRepository;
 
     public Veiculo findById(Integer id) {
         Optional<Veiculo> obj = repository.findById(id);

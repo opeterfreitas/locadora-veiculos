@@ -1,37 +1,22 @@
-package com.locap.locadora.domain;
+package com.locap.locadora.domain.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.locap.locadora.domain.dtos.FaturaDTO;
-import jakarta.persistence.*;
+import com.locap.locadora.domain.Fatura;
+import com.locap.locadora.domain.Locacao;
 
 import java.io.Serializable;
-import java.util.Objects;
 
-@Entity
-public class Fatura implements Serializable {
+public class FaturaDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Double pagamentoBasico;
     private Double taxa;
-
-    @JsonIgnore
-    @OneToOne
     private Locacao locacao;
 
-    public Fatura() {
+    public FaturaDTO() {
     }
 
-    public Fatura(Integer id, Double pagamentoBasico, Double taxa, Locacao locacao) {
-        this.id = id;
-        this.pagamentoBasico = pagamentoBasico;
-        this.taxa = taxa;
-        this.locacao = locacao;
-    }
-
-    public Fatura(FaturaDTO obj) {
+    public FaturaDTO(Fatura obj) {
         this.id = obj.getId();
         this.pagamentoBasico = obj.getPagamentoBasico();
         this.taxa = obj.getTaxa();
@@ -68,18 +53,5 @@ public class Fatura implements Serializable {
 
     public void setLocacao(Locacao locacao) {
         this.locacao = locacao;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Fatura fatura = (Fatura) o;
-        return id.equals(fatura.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }
