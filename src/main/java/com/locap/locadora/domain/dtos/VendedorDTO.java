@@ -1,7 +1,7 @@
 package com.locap.locadora.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.locap.locadora.domain.Cliente;
+import com.locap.locadora.domain.Vendedor;
 import com.locap.locadora.domain.enums.Perfil;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ClienteDTO implements Serializable {
+public class VendedorDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -41,11 +41,11 @@ public class ClienteDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
-    public ClienteDTO() {
-        addPerfil(Perfil.CLIENTE);
+    public VendedorDTO() {
+        addPerfil(Perfil.VENDEDOR);
     }
 
-    public ClienteDTO(Cliente obj) {
+    public VendedorDTO(Vendedor obj) {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.cep = obj.getCep();
@@ -60,7 +60,7 @@ public class ClienteDTO implements Serializable {
         this.senha = obj.getSenha();
         this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
         this.dataCriacao = obj.getDataCriacao();
-        addPerfil(Perfil.CLIENTE);
+        addPerfil(Perfil.VENDEDOR);
     }
 
     public Integer getId() {
