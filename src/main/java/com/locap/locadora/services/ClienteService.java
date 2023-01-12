@@ -49,13 +49,21 @@ public class ClienteService {
         return repository.save(oldObj);
     }
 
+    public void delete(Integer id) {
+        Cliente obj = findById(id);
+        if (obj.getLocacoes().size() > 0) {
+            throw new DataIntegrityViolationException("Cliente possui locações e não pode ser deletado!");
+        }
+        repository.deleteById(id);
+    }
+
     public CepDTO consultaCep(String cep) {
         return new RestTemplate()
                 .getForEntity("https://viacep.com.br/ws/" + cep + "/json/", CepDTO.class)
                 .getBody();
     }
 
-    public void validaCep(ClienteDTO objDTO){
+    public void validaCep(ClienteDTO objDTO) {
         CepDTO cepDTO = consultaCep(objDTO.getCep());
         objDTO.setLogradouro(cepDTO.getLogradouro());
         objDTO.setBairro(cepDTO.getBairro());
@@ -73,4 +81,6 @@ public class ClienteService {
             throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
         }
     }
+
+
 }
