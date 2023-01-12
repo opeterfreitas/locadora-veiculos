@@ -1,6 +1,7 @@
 package com.locap.locadora.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.locap.locadora.domain.dtos.VeiculoDTO;
 import com.locap.locadora.domain.enums.Categoria;
 import jakarta.persistence.*;
 
@@ -34,6 +35,14 @@ public class Veiculo implements Serializable {
         this.categoria = categoria;
         this.precoPorDia = precoPorDia;
         this.precoPorHora = precoPorHora;
+    }
+
+    public Veiculo(VeiculoDTO obj) {
+        this.id = obj.getId();
+        this.modelo = obj.getModelo();
+        this.categoria = obj.getCategoria();
+        this.precoPorDia = obj.getPrecoPorDia();
+        this.precoPorHora = obj.getPrecoPorHora();
     }
 
     public Integer getId() {
