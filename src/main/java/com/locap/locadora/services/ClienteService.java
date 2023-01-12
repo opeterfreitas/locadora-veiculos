@@ -10,6 +10,7 @@ import com.locap.locadora.services.exceptions.DataIntegrityViolationException;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class ClienteService {
         return repository.findAll();
     }
 
+    @Transactional
     public Cliente create(ClienteDTO objDTO) {
         objDTO.setId(null);
         validaPorCpfEEmail(objDTO);
@@ -40,6 +42,7 @@ public class ClienteService {
         return repository.save(newObj);
     }
 
+    @Transactional
     public Cliente update(Integer id, ClienteDTO objDTO) {
         objDTO.setId(id);
         Cliente oldObj = findById(id);
@@ -49,6 +52,7 @@ public class ClienteService {
         return repository.save(oldObj);
     }
 
+    @Transactional
     public void delete(Integer id) {
         Cliente obj = findById(id);
         if (obj.getLocacoes().size() > 0) {

@@ -6,6 +6,7 @@ import com.locap.locadora.repositories.FaturaRepository;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +26,14 @@ public class FaturaService {
         return repository.findAll();
     }
 
+    @Transactional
     public Fatura create(FaturaDTO objDTO) {
         objDTO.setId(null);
         Fatura newObj = new Fatura(objDTO);
         return repository.save(newObj);
     }
 
+    @Transactional
     public Fatura update(Integer id, FaturaDTO objDTO) {
         objDTO.setId(id);
         Fatura oldObj = findById(id);
@@ -38,6 +41,7 @@ public class FaturaService {
         return repository.save(oldObj);
     }
 
+    @Transactional
     public void delete(Integer id) {
         Fatura obj = findById(id);
         repository.deleteById(id);

@@ -16,9 +16,6 @@ public class Fatura implements Serializable {
     private Integer id;
     private Double pagamentoBasico;
     private Double taxa;
-
-    @JsonIgnore
-    @OneToOne
     private Locacao locacao;
 
     public Fatura() {
@@ -36,6 +33,12 @@ public class Fatura implements Serializable {
         this.pagamentoBasico = obj.getPagamentoBasico();
         this.taxa = obj.getTaxa();
         this.locacao = obj.getLocacao();
+    }
+
+    public Fatura(Integer id, Double pagamentoBasico, Double taxa) {
+        this.id = id;
+        this.pagamentoBasico = pagamentoBasico;
+        this.taxa = taxa;
     }
 
     public Integer getId() {

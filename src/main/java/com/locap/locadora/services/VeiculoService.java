@@ -7,6 +7,7 @@ import com.locap.locadora.services.exceptions.DataIntegrityViolationException;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +27,14 @@ public class VeiculoService {
         return repository.findAll();
     }
 
+    @Transactional
     public Veiculo create(VeiculoDTO objDTO) {
         objDTO.setId(null);
         Veiculo newObj = new Veiculo(objDTO);
         return repository.save(newObj);
     }
 
+    @Transactional
     public Veiculo update(Integer id, VeiculoDTO objDTO) {
         objDTO.setId(id);
         Veiculo oldObj = findById(id);
@@ -39,6 +42,7 @@ public class VeiculoService {
         return repository.save(oldObj);
     }
 
+    @Transactional
     public void delete(Integer id) {
         Veiculo obj = findById(id);
         if (obj.getLocacoes().size() > 0) {

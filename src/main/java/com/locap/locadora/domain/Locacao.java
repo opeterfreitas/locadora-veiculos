@@ -1,6 +1,7 @@
 package com.locap.locadora.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.locap.locadora.domain.dtos.LocacaoDTO;
 import com.locap.locadora.domain.enums.Categoria;
 import com.locap.locadora.domain.enums.Status;
 import jakarta.persistence.*;
@@ -37,8 +38,6 @@ public class Locacao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
-    @OneToOne
-    private Fatura fatura;
 
     public Locacao() {
     }
@@ -52,6 +51,7 @@ public class Locacao implements Serializable {
         this.vendedor = vendedor;
         this.veiculo = veiculo;
     }
+
 
     public Integer getId() {
         return id;
@@ -123,14 +123,6 @@ public class Locacao implements Serializable {
 
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
-    }
-
-    public Fatura getFatura() {
-        return fatura;
-    }
-
-    public void setFatura(Fatura fatura) {
-        this.fatura = fatura;
     }
 
     @Override
