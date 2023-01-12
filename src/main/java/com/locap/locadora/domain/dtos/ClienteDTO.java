@@ -3,6 +3,7 @@ package com.locap.locadora.domain.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.Cliente;
 import com.locap.locadora.domain.enums.Perfil;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -28,6 +29,7 @@ public class ClienteDTO implements Serializable {
     private String uf;
     @NotNull(message = "O campo CPF é requerido")
     private String cpf;
+    @Email
     @NotNull(message = "O campo EMAIL é requerido")
     private String email;
     @NotNull(message = "O campo SENHA é requerido")

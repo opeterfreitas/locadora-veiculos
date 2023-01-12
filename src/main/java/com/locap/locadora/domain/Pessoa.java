@@ -3,7 +3,6 @@ package com.locap.locadora.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.enums.Perfil;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
@@ -34,7 +33,6 @@ public abstract class Pessoa implements Serializable {
     @Column(unique = true)
     protected String cpf;
 
-    @Email
     @Column(unique = true)
     protected String email;
     protected String senha;

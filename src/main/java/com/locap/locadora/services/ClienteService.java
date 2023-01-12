@@ -35,16 +35,32 @@ public class ClienteService {
     public Cliente create(ClienteDTO objDTO) {
         objDTO.setId(null);
         validaPorCpfEEmail(objDTO);
+        validaCep(objDTO);
+        Cliente newObj = new Cliente(objDTO);
+        return repository.save(newObj);
+    }
 
+    public Cliente update(Integer id, ClienteDTO objDTO) {
+        objDTO.setId(id);
+        Cliente oldObj = findById(id);
+        validaPorCpfEEmail(objDTO);
+        validaCep(objDTO);
+        oldObj = new Cliente(objDTO);
+        return repository.save(oldObj);
+    }
+
+    public CepDTO consultaCep(String cep) {
+        return new RestTemplate()
+                .getForEntity("https://viacep.com.br/ws/" + cep + "/json/", CepDTO.class)
+                .getBody();
+    }
+
+    public void validaCep(ClienteDTO objDTO){
         CepDTO cepDTO = consultaCep(objDTO.getCep());
-
         objDTO.setLogradouro(cepDTO.getLogradouro());
         objDTO.setBairro(cepDTO.getBairro());
         objDTO.setLocalidade(cepDTO.getLocalidade());
         objDTO.setUf(cepDTO.getUf());
-
-        Cliente newObj = new Cliente(objDTO);
-        return repository.save(newObj);
     }
 
     private void validaPorCpfEEmail(ClienteDTO objDTO) {
@@ -56,11 +72,5 @@ public class ClienteService {
         if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
             throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
         }
-    }
-
-    public CepDTO consultaCep(String cep) {
-        return new RestTemplate()
-                .getForEntity("https://viacep.com.br/ws/" + cep + "/json/", CepDTO.class)
-                .getBody();
     }
 }
