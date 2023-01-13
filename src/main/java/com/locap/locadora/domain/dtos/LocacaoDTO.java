@@ -2,6 +2,7 @@ package com.locap.locadora.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.Locacao;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,11 +19,15 @@ public class LocacaoDTO implements Serializable {
     private LocalDateTime dataFim;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataDevolucao;
+    @NotNull(message = "O campo STATUS é requerido")
     private Integer status;
+    @NotNull(message = "O campo CLIENTE é requerido")
     private Integer cliente;
     private String nomeCliente;
+    @NotNull(message = "O campo VENDEDOR é requerido")
     private Integer vendedor;
     private String nomeVendedor;
+    @NotNull(message = "O campo VEICULO é requerido")
     private Integer veiculo;
 
     public LocacaoDTO() {
