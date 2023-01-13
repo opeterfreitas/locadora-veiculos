@@ -34,9 +34,15 @@ public class LocacaoResource {
     }
 
     @PostMapping
-    public ResponseEntity<LocacaoDTO> create(@RequestBody @Valid LocacaoDTO objDTO){
+    public ResponseEntity<LocacaoDTO> create(@RequestBody @Valid LocacaoDTO objDTO) {
         Locacao obj = service.create(objDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<LocacaoDTO> update(@PathVariable Integer id, @RequestBody @Valid LocacaoDTO objDTO) {
+        Locacao newObj = service.update(id, objDTO);
+        return ResponseEntity.ok().body(new LocacaoDTO(newObj));
     }
 }
