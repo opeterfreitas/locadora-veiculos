@@ -1,8 +1,10 @@
 package com.locap.locadora.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.locap.locadora.domain.dtos.FaturaDTO;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,27 +18,23 @@ public class Fatura implements Serializable {
     private Integer id;
     private Double pagamentoBasico;
     private Double taxa;
-    private Locacao locacao;
 
     public Fatura() {
-    }
-
-    public Fatura(Integer id, Double pagamentoBasico, Double taxa, Locacao locacao) {
-        this.id = id;
-        this.pagamentoBasico = pagamentoBasico;
-        this.taxa = taxa;
-        this.locacao = locacao;
     }
 
     public Fatura(FaturaDTO obj) {
         this.id = obj.getId();
         this.pagamentoBasico = obj.getPagamentoBasico();
         this.taxa = obj.getTaxa();
-        this.locacao = obj.getLocacao();
     }
 
     public Fatura(Integer id, Double pagamentoBasico, Double taxa) {
         this.id = id;
+        this.pagamentoBasico = pagamentoBasico;
+        this.taxa = taxa;
+    }
+
+    public Fatura(Double pagamentoBasico, Double taxa) {
         this.pagamentoBasico = pagamentoBasico;
         this.taxa = taxa;
     }
@@ -65,12 +63,8 @@ public class Fatura implements Serializable {
         this.taxa = taxa;
     }
 
-    public Locacao getLocacao() {
-        return locacao;
-    }
-
-    public void setLocacao(Locacao locacao) {
-        this.locacao = locacao;
+    public Double getPagamentoTotal() {
+        return getPagamentoBasico() + getTaxa();
     }
 
     @Override

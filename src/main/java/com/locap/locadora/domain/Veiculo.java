@@ -21,7 +21,6 @@ public class Veiculo implements Serializable {
     private Categoria categoria;
     private Double precoPorDia;
     private Double precoPorHora;
-
     @JsonIgnore
     @OneToMany(mappedBy = "veiculo")
     private List<Locacao> locacoes = new ArrayList<>();
@@ -35,6 +34,15 @@ public class Veiculo implements Serializable {
         this.categoria = categoria;
         this.precoPorDia = precoPorDia;
         this.precoPorHora = precoPorHora;
+    }
+
+    public Veiculo(Integer id, String modelo, Categoria categoria, Double precoPorDia, Double precoPorHora, List<Locacao> locacoes) {
+        this.id = id;
+        this.modelo = modelo;
+        this.categoria = categoria;
+        this.precoPorDia = precoPorDia;
+        this.precoPorHora = precoPorHora;
+        this.locacoes = locacoes;
     }
 
     public Veiculo(VeiculoDTO obj) {

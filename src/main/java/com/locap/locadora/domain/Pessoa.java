@@ -1,9 +1,7 @@
 package com.locap.locadora.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.enums.Perfil;
 import jakarta.persistence.*;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,7 +18,6 @@ public abstract class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String nome;
-
     protected String cep;
     protected String logradouro;
     protected String numero;
@@ -28,19 +25,14 @@ public abstract class Pessoa implements Serializable {
     protected String bairro;
     protected String localidade;
     protected String uf;
-
     @Column(unique = true)
     protected String cpf;
-
     @Column(unique = true)
     protected String email;
     protected String senha;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
     protected Set<Integer> perfis = new HashSet<>();
-
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     protected LocalDateTime dataCriacao = LocalDateTime.now();
 
     public Pessoa() {

@@ -1,16 +1,15 @@
 package com.locap.locadora.services;
 
-import com.locap.locadora.domain.Cliente;
-import com.locap.locadora.domain.Locacao;
-import com.locap.locadora.domain.Veiculo;
-import com.locap.locadora.domain.Vendedor;
+import com.locap.locadora.domain.*;
 import com.locap.locadora.domain.dtos.LocacaoDTO;
 import com.locap.locadora.domain.enums.Status;
 import com.locap.locadora.repositories.LocacaoRepository;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -36,10 +35,12 @@ public class LocacaoService {
         return repository.findAll();
     }
 
+    @Transactional
     public Locacao create(LocacaoDTO objDTO) {
         return repository.save(newLocacao(objDTO));
     }
 
+    @Transactional
     public Locacao update(Integer id, LocacaoDTO objDTO) {
         objDTO.setId(id);
         Locacao oldObj = findById(id);
@@ -59,10 +60,6 @@ public class LocacaoService {
             locacao.setId(objDTO.getId());
         }
 
-        if (objDTO.getStatus().equals(2)){
-            locacao.setDataDevolucao(LocalDateTime.now());
-        }
-
         locacao.setVendedor(vendedor);
         locacao.setCliente(cliente);
         locacao.setVeiculo(veiculo);
@@ -70,6 +67,36 @@ public class LocacaoService {
         locacao.setDataInicio(objDTO.getDataInicio());
         locacao.setDataFim(objDTO.getDataFim());
 
+        if (objDTO.getStatus().equals(2)) {
+            locacao.setDataDevolucao(LocalDateTime.now());
+            processoFatura(locacao);
+        }
         return locacao;
+    }
+
+    public void processoFatura(Locacao obj) {
+
+        double minutos = Duration.between(obj.getDataInicio(), obj.getDataFim()).toMinutes();
+        double horas = minutos / 60.0;
+
+        double pagamentoBasico;
+
+        if (horas <= 12.0) {
+            pagamentoBasico = obj.getVeiculo().getPrecoPorHora() * Math.ceil(horas);
+        } else {
+            pagamentoBasico = obj.getVeiculo().getPrecoPorDia() * Math.ceil(horas / 24);
+        }
+
+        double taxa = taxa(pagamentoBasico);
+
+        obj.setFatura(new Fatura(pagamentoBasico, taxa));
+    }
+
+    public double taxa(double pagamentoBasico) {
+        if (pagamentoBasico <= 100.0) {
+            return pagamentoBasico * 0.2;
+        } else {
+            return pagamentoBasico * 0.15;
+        }
     }
 }
