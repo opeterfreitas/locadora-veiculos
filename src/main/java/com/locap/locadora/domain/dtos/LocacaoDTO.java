@@ -129,4 +129,5 @@ public class LocacaoDTO implements Serializable {
     public void setVeiculo(Integer veiculo) {
         this.veiculo = veiculo;
     }
+
 }

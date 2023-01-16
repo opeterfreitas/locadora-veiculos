@@ -1,6 +1,7 @@
 package com.locap.locadora.resources;
 
 import com.locap.locadora.domain.Locacao;
+import com.locap.locadora.domain.dtos.ClienteDTO;
 import com.locap.locadora.domain.dtos.LocacaoDTO;
 import com.locap.locadora.services.LocacaoService;
 import jakarta.validation.Valid;
@@ -33,6 +34,20 @@ public class LocacaoResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    @GetMapping("/abertos")
+    public ResponseEntity<List<LocacaoDTO>> findAllOpen(){
+        List<Locacao> list = service.findAllOpen();
+        List<LocacaoDTO> listDTO = list.stream().map(obj -> new LocacaoDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
+
+    @GetMapping("/fechados")
+    public ResponseEntity<List<LocacaoDTO>> findAllClose(){
+        List<Locacao> list = service.findAllClose();
+        List<LocacaoDTO> listDTO = list.stream().map(obj -> new LocacaoDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
+
     @PostMapping
     public ResponseEntity<LocacaoDTO> create(@RequestBody @Valid LocacaoDTO objDTO) {
         Locacao obj = service.create(objDTO);
@@ -44,5 +59,11 @@ public class LocacaoResource {
     public ResponseEntity<LocacaoDTO> update(@PathVariable Integer id, @RequestBody @Valid LocacaoDTO objDTO) {
         Locacao newObj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new LocacaoDTO(newObj));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<LocacaoDTO> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

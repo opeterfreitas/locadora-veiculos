@@ -4,6 +4,7 @@ import com.locap.locadora.domain.*;
 import com.locap.locadora.domain.dtos.LocacaoDTO;
 import com.locap.locadora.domain.enums.Status;
 import com.locap.locadora.repositories.LocacaoRepository;
+import com.locap.locadora.services.exceptions.DataIntegrityViolationException;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,16 @@ public class LocacaoService {
         return repository.findAll();
     }
 
+    public List<Locacao> findAllOpen() {
+        List<Locacao> list = repository.findBydataDevolucaoIsNull();
+        return list;
+    }
+
+    public List<Locacao> findAllClose() {
+        List<Locacao> list = repository.findBydataDevolucaoNotNull();
+        return list;
+    }
+
     @Transactional
     public Locacao create(LocacaoDTO objDTO) {
         return repository.save(newLocacao(objDTO));
@@ -48,6 +59,12 @@ public class LocacaoService {
         return repository.save(oldObj);
     }
 
+    @Transactional
+    public void delete(Integer id) {
+        Locacao obj = findById(id);
+        repository.deleteById(id);
+    }
+
     private Locacao newLocacao(LocacaoDTO objDTO) {
 
         Vendedor vendedor = vendedorService.findById(objDTO.getVendedor());
@@ -59,6 +76,10 @@ public class LocacaoService {
         if (objDTO.getId() != null) {
             locacao.setId(objDTO.getId());
         }
+        if (objDTO.getStatus().equals(2)) {
+            locacao.setDataDevolucao(LocalDateTime.now());
+            processoFatura(locacao);
+        }
 
         locacao.setVendedor(vendedor);
         locacao.setCliente(cliente);
@@ -67,10 +88,11 @@ public class LocacaoService {
         locacao.setDataInicio(objDTO.getDataInicio());
         locacao.setDataFim(objDTO.getDataFim());
 
-        if (objDTO.getStatus().equals(2)) {
-            locacao.setDataDevolucao(LocalDateTime.now());
-            processoFatura(locacao);
+        Optional<Locacao> existeLocacao = repository.existeLocacao(locacao.getVeiculo(), locacao.getDataInicio(), locacao.getDataFim());
+        if (existeLocacao.isPresent()) {
+            throw new DataIntegrityViolationException("Data de inicio dentro de período já locado");
         }
+
         return locacao;
     }
 
@@ -99,4 +121,7 @@ public class LocacaoService {
             return pagamentoBasico * 0.15;
         }
     }
+
+
+
 }
