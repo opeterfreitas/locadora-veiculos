@@ -121,7 +121,4 @@ public class LocacaoService {
             return pagamentoBasico * 0.15;
         }
     }
-
-
-
 }
