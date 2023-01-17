@@ -21,8 +21,9 @@
 <h2>🛠 Tecnologias Utilizadas</h2>
 
 <ul>
-    <li>Java 17</li>
+    <li>Java 11</li>
     <li>Spring Web</li>
     <li>Spring Data JPA</li>
+    <li>Spring Security</li>
     <li>H2</li>
 </ul>
