@@ -1,5 +1,6 @@
 package com.locap.locadora.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.enums.Status;
 import jakarta.persistence.*;
 
@@ -14,9 +15,13 @@ public class Locacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCriacaoReserva = LocalDateTime.now();
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataInicio;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFim;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataDevolucao;
     private Status status;
     @ManyToOne

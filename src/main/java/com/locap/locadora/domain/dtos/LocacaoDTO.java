@@ -1,5 +1,6 @@
 package com.locap.locadora.domain.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.Locacao;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,9 +11,13 @@ public class LocacaoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCriacaoReserva = LocalDateTime.now();
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataInicio;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFim;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataDevolucao;
     @NotNull(message = "O campo STATUS é requerido")
     private Integer status;

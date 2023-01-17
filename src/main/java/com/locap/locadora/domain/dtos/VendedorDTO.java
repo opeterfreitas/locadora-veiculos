@@ -1,5 +1,6 @@
 package com.locap.locadora.domain.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.Vendedor;
 import com.locap.locadora.domain.enums.Perfil;
 import jakarta.validation.constraints.Email;
@@ -37,6 +38,7 @@ public class VendedorDTO implements Serializable {
     private String senha;
     private Set<Integer> perfis = new HashSet<>();
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
     public VendedorDTO() {

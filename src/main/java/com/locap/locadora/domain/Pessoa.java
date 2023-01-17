@@ -1,5 +1,6 @@
 package com.locap.locadora.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.enums.Perfil;
 import jakarta.persistence.*;
 
@@ -33,6 +34,7 @@ public abstract class Pessoa implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
     protected Set<Integer> perfis = new HashSet<>();
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     protected LocalDateTime dataCriacao = LocalDateTime.now();
 
     public Pessoa() {
