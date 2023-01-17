@@ -2,7 +2,7 @@ package com.locap.locadora.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.Locacao;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

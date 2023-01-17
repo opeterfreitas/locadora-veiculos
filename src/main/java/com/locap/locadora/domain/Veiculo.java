@@ -3,7 +3,7 @@ package com.locap.locadora.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.locap.locadora.domain.dtos.VeiculoDTO;
 import com.locap.locadora.domain.enums.Categoria;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -3,8 +3,8 @@ package com.locap.locadora.domain.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.Cliente;
 import com.locap.locadora.domain.enums.Perfil;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;

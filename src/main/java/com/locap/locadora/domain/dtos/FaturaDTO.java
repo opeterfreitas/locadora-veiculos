@@ -1,7 +1,6 @@
 package com.locap.locadora.domain.dtos;
 
 import com.locap.locadora.domain.Fatura;
-import com.locap.locadora.domain.Locacao;
 
 import java.io.Serializable;
 

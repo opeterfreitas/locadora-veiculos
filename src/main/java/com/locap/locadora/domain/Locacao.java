@@ -2,7 +2,7 @@ package com.locap.locadora.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.enums.Status;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

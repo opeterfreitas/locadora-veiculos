@@ -2,7 +2,7 @@ package com.locap.locadora.domain.dtos;
 
 import com.locap.locadora.domain.Veiculo;
 import com.locap.locadora.domain.enums.Categoria;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 

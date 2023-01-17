@@ -3,8 +3,8 @@ package com.locap.locadora.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.locap.locadora.domain.dtos.VendedorDTO;
 import com.locap.locadora.domain.enums.Perfil;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;

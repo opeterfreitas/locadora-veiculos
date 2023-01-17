@@ -9,6 +9,7 @@ import com.locap.locadora.repositories.LocacaoRepository;
 import com.locap.locadora.repositories.PessoaRepository;
 import com.locap.locadora.repositories.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,21 +27,23 @@ public class DBService {
     private FaturaRepository faturaRepository;
     @Autowired
     private VeiculoRepository veiculoRepository;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     public void instanciaDB() {
 
-        Vendedor v1 = new Vendedor(null, "Peter Freitas","38414042","","","","","","", "550.482.150-95", "peter@mail.com", "123");
+        Vendedor v1 = new Vendedor(null, "Peter Freitas","38414042","","","","","","", "550.482.150-95", "peter@mail.com", encoder.encode("123"));
         v1.addPerfil(Perfil.ADMIN);
-        Vendedor v2 = new Vendedor(null, "Richard Stallman","38414042","","","","","","","903.347.070-56", "stallman@mail.com", "123");
-        Vendedor v3 = new Vendedor(null, "Claude Elwood Shannon", "38414042","","","","","","","271.068.470-54", "shannon@mail.com", "123");
-        Vendedor v4 = new Vendedor(null, "Tim Berners-Lee", "38414042","","","","","","","162.720.120-39", "lee@mail.com", "123");
-        Vendedor v5 = new Vendedor(null, "Linus Torvalds", "38414042","","","","","","","778.556.170-27", "linus@mail.com", "123");
+        Vendedor v2 = new Vendedor(null, "Richard Stallman","38414042","","","","","","","903.347.070-56", "stallman@mail.com", encoder.encode("123"));
+        Vendedor v3 = new Vendedor(null, "Claude Elwood Shannon", "38414042","","","","","","","271.068.470-54", "shannon@mail.com", encoder.encode("123"));
+        Vendedor v4 = new Vendedor(null, "Tim Berners-Lee", "38414042","","","","","","","162.720.120-39", "lee@mail.com", encoder.encode("123"));
+        Vendedor v5 = new Vendedor(null, "Linus Torvalds", "38414042","","","","","","","778.556.170-27", "linus@mail.com", encoder.encode("123"));
 
-        Cliente c1 = new Cliente(null, "Albert Einstein", "38414042","","","","","","","111.661.890-74", "einstein@mail.com", "123");
-        Cliente c2 = new Cliente(null, "Marie Curie", "38414042","","","","","","","322.429.140-06", "curie@mail.com", "123");
-        Cliente c3 = new Cliente(null, "Charles Darwin","38414042","","","","","","","792.043.830-62", "darwin@mail.com", "123");
-        Cliente c4 = new Cliente(null, "Stephen Hawking", "38414042","","","","","","","177.409.680-30", "hawking@mail.com", "123");
-        Cliente c5 = new Cliente(null, "Max Planck", "38414042","","","","","","","081.399.300-83", "planck@mail.com", "123");
+        Cliente c1 = new Cliente(null, "Albert Einstein", "38414042","","","","","","","111.661.890-74", "einstein@mail.com", encoder.encode("123"));
+        Cliente c2 = new Cliente(null, "Marie Curie", "38414042","","","","","","","322.429.140-06", "curie@mail.com", encoder.encode("123"));
+        Cliente c3 = new Cliente(null, "Charles Darwin","38414042","","","","","","","792.043.830-62", "darwin@mail.com", encoder.encode("123"));
+        Cliente c4 = new Cliente(null, "Stephen Hawking", "38414042","","","","","","","177.409.680-30", "hawking@mail.com", encoder.encode("123"));
+        Cliente c5 = new Cliente(null, "Max Planck", "38414042","","","","","","","081.399.300-83", "planck@mail.com", encoder.encode("123"));
 
         Veiculo vc1 = new Veiculo(null, "Uno Fire 1.0", Categoria.HATCH, 110.0, 11.0);
         Veiculo vc2 = new Veiculo(null, "Gol G6 1.0", Categoria.HATCH, 120.0, 12.0);

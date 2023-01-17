@@ -3,9 +3,10 @@ package com.locap.locadora.resources;
 import com.locap.locadora.domain.Veiculo;
 import com.locap.locadora.domain.dtos.VeiculoDTO;
 import com.locap.locadora.services.VeiculoService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,6 +34,7 @@ public class VeiculoResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<VeiculoDTO> create(@Valid @RequestBody VeiculoDTO objDTO) {
         Veiculo newObj = service.create(objDTO);
@@ -40,12 +42,14 @@ public class VeiculoResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<VeiculoDTO> update(@PathVariable Integer id, @Valid @RequestBody VeiculoDTO objDTO) {
         Veiculo obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new VeiculoDTO(obj));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<VeiculoDTO> delete(@PathVariable Integer id) {
         service.delete(id);
