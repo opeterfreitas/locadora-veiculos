@@ -2,6 +2,7 @@ package com.locap.locadora.repositories;
 
 import com.locap.locadora.domain.Locacao;
 import com.locap.locadora.domain.Veiculo;
+import com.locap.locadora.domain.enums.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

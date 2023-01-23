@@ -76,9 +76,10 @@ public class LocacaoService {
         if (objDTO.getId() != null) {
             locacao.setId(objDTO.getId());
         }
+
         if (objDTO.getStatus().equals(2)) {
             locacao.setDataDevolucao(LocalDateTime.now());
-            processoFatura(locacao);
+            processoFatura(objDTO);
         }
 
         locacao.setVendedor(vendedor);
@@ -89,29 +90,31 @@ public class LocacaoService {
         locacao.setDataFim(objDTO.getDataFim());
 
         Optional<Locacao> existeLocacao = repository.existeLocacao(locacao.getVeiculo(), locacao.getDataInicio(), locacao.getDataFim());
-        if (existeLocacao.isPresent()) {
+        if (existeLocacao.isPresent() && objDTO.getId() == null) {
             throw new DataIntegrityViolationException("Data de inicio dentro de período já locado");
         }
 
         return locacao;
     }
 
-    public void processoFatura(Locacao obj) {
+    public void processoFatura(LocacaoDTO objDTO) {
 
-        double minutos = Duration.between(obj.getDataInicio(), obj.getDataFim()).toMinutes();
+        Locacao locacao = findById(objDTO.getId());
+
+        double minutos = Duration.between(locacao.getDataInicio(), locacao.getDataFim()).toMinutes();
         double horas = minutos / 60.0;
 
         double pagamentoBasico;
 
         if (horas <= 12.0) {
-            pagamentoBasico = obj.getVeiculo().getPrecoPorHora() * Math.ceil(horas);
+            pagamentoBasico = locacao.getVeiculo().getPrecoPorHora() * Math.ceil(horas);
         } else {
-            pagamentoBasico = obj.getVeiculo().getPrecoPorDia() * Math.ceil(horas / 24);
+            pagamentoBasico = locacao.getVeiculo().getPrecoPorDia() * Math.ceil(horas / 24);
         }
 
         double taxa = taxa(pagamentoBasico);
 
-        obj.setFatura(new Fatura(pagamentoBasico, taxa));
+        locacao.setFatura(new Fatura(pagamentoBasico, taxa));
     }
 
     public double taxa(double pagamentoBasico) {
