@@ -1,6 +1,7 @@
 package com.locap.locadora.domain.dtos;
 
 import com.locap.locadora.domain.Fatura;
+import com.locap.locadora.domain.Locacao;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ public class FaturaDTO implements Serializable {
     private Integer id;
     private Double pagamentoBasico;
     private Double taxa;
+    private Locacao locacao;
 
     public FaturaDTO() {
     }
@@ -18,6 +20,7 @@ public class FaturaDTO implements Serializable {
         this.id = obj.getId();
         this.pagamentoBasico = obj.getPagamentoBasico();
         this.taxa = obj.getTaxa();
+        this.locacao = obj.getLocacao();
     }
 
     public Integer getId() {
@@ -44,4 +47,11 @@ public class FaturaDTO implements Serializable {
         this.taxa = taxa;
     }
 
+    public Locacao getLocacao() {
+        return locacao;
+    }
+
+    public void setLocacao(Locacao locacao) {
+        this.locacao = locacao;
+    }
 }

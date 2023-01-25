@@ -1,10 +1,8 @@
 package com.locap.locadora.domain;
 
 import com.locap.locadora.domain.dtos.FaturaDTO;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,14 +16,23 @@ public class Fatura implements Serializable {
     private Integer id;
     private Double pagamentoBasico;
     private Double taxa;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Locacao locacao;
 
     public Fatura() {
     }
 
-    public Fatura(FaturaDTO obj) {
-        this.id = obj.getId();
-        this.pagamentoBasico = obj.getPagamentoBasico();
-        this.taxa = obj.getTaxa();
+    public Fatura(FaturaDTO objDTO) {
+        this.id = objDTO.getId();
+        this.pagamentoBasico = objDTO.getPagamentoBasico();
+        this.taxa = objDTO.getTaxa();
+    }
+
+    public Fatura(Integer id, Double pagamentoBasico, Double taxa, Locacao locacao) {
+        this.id = id;
+        this.pagamentoBasico = pagamentoBasico;
+        this.taxa = taxa;
+        this.locacao = locacao;
     }
 
     public Fatura(Integer id, Double pagamentoBasico, Double taxa) {
@@ -34,9 +41,10 @@ public class Fatura implements Serializable {
         this.taxa = taxa;
     }
 
-    public Fatura(Double pagamentoBasico, Double taxa) {
+    public Fatura(Double pagamentoBasico, Double taxa, Locacao locacao) {
         this.pagamentoBasico = pagamentoBasico;
         this.taxa = taxa;
+        this.locacao = locacao;
     }
 
     public Integer getId() {
@@ -65,6 +73,14 @@ public class Fatura implements Serializable {
 
     public Double getPagamentoTotal() {
         return getPagamentoBasico() + getTaxa();
+    }
+
+    public Locacao getLocacao() {
+        return locacao;
+    }
+
+    public void setLocacao(Locacao locacao) {
+        this.locacao = locacao;
     }
 
     @Override

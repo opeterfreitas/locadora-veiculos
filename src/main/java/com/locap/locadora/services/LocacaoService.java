@@ -114,7 +114,7 @@ public class LocacaoService {
 
         double taxa = taxa(pagamentoBasico);
 
-        locacao.setFatura(new Fatura(pagamentoBasico, taxa));
+        locacao.setFatura(new Fatura(pagamentoBasico, taxa, locacao));
     }
 
     public double taxa(double pagamentoBasico) {
