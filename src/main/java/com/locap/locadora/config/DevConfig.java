@@ -1,18 +1,18 @@
 package com.locap.locadora.config;
 
 import com.locap.locadora.services.DBService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+@RequiredArgsConstructor
 @Configuration
 @Profile("dev")
 public class DevConfig {
 
-    @Autowired
-    private DBService dbService;
+    private final DBService dbService;
 
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String value;

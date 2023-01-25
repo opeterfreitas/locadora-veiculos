@@ -2,11 +2,18 @@ package com.locap.locadora.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.Locacao;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LocacaoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -30,9 +37,6 @@ public class LocacaoDTO implements Serializable {
     @NotNull(message = "O campo VEICULO é requerido")
     private Integer veiculo;
 
-    public LocacaoDTO() {
-    }
-
     public LocacaoDTO(Locacao obj) {
         this.id = obj.getId();
         this.dataCriacaoReserva = obj.getDataCriacaoReserva();
@@ -46,93 +50,4 @@ public class LocacaoDTO implements Serializable {
         this.nomeVendedor = obj.getVendedor().getNome();
         this.veiculo = obj.getVeiculo().getId();
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDataCriacaoReserva() {
-        return dataCriacaoReserva;
-    }
-
-    public void setDataCriacaoReserva(LocalDateTime dataCriacaoReserva) {
-        this.dataCriacaoReserva = dataCriacaoReserva;
-    }
-
-    public LocalDateTime getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDateTime dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public LocalDateTime getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(LocalDateTime dataFim) {
-        this.dataFim = dataFim;
-    }
-
-    public LocalDateTime getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(LocalDateTime dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Integer cliente) {
-        this.cliente = cliente;
-    }
-
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
-
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
-    public Integer getVendedor() {
-        return vendedor;
-    }
-
-    public void setVendedor(Integer vendedor) {
-        this.vendedor = vendedor;
-    }
-
-    public String getNomeVendedor() {
-        return nomeVendedor;
-    }
-
-    public void setNomeVendedor(String nomeVendedor) {
-        this.nomeVendedor = nomeVendedor;
-    }
-
-    public Integer getVeiculo() {
-        return veiculo;
-    }
-
-    public void setVeiculo(Integer veiculo) {
-        this.veiculo = veiculo;
-    }
-
 }

@@ -8,7 +8,7 @@ import com.locap.locadora.repositories.PessoaRepository;
 import com.locap.locadora.repositories.VendedorRepository;
 import com.locap.locadora.services.exceptions.DataIntegrityViolationException;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -16,13 +16,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class VendedorService {
 
-    @Autowired
-    private VendedorRepository repository;
-    @Autowired
-    private PessoaRepository pessoaRepository;
+    private final VendedorRepository repository;
+    private final PessoaRepository pessoaRepository;
 
     public Vendedor findById(Integer id) {
         Optional<Vendedor> obj = repository.findById(id);

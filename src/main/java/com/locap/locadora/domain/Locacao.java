@@ -2,12 +2,17 @@ package com.locap.locadora.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.locap.locadora.domain.enums.Status;
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Locacao implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -36,9 +41,6 @@ public class Locacao implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Fatura fatura;
 
-    public Locacao() {
-    }
-
     public Locacao(Integer id, LocalDateTime dataInicio, LocalDateTime dataFim, Status status, Cliente cliente, Vendedor vendedor, Veiculo veiculo) {
         this.id = id;
         this.dataInicio = dataInicio;
@@ -47,98 +49,5 @@ public class Locacao implements Serializable {
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.veiculo = veiculo;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDataCriacaoReserva() {
-        return dataCriacaoReserva;
-    }
-
-    public void setDataCriacaoReserva(LocalDateTime dataCriacaoReserva) {
-        this.dataCriacaoReserva = dataCriacaoReserva;
-    }
-
-    public LocalDateTime getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDateTime dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public LocalDateTime getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(LocalDateTime dataFim) {
-        this.dataFim = dataFim;
-    }
-
-    public LocalDateTime getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(LocalDateTime dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Vendedor getVendedor() {
-        return vendedor;
-    }
-
-    public void setVendedor(Vendedor vendedor) {
-        this.vendedor = vendedor;
-    }
-
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
-
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
-    }
-
-    public Fatura getFatura() {
-        return fatura;
-    }
-
-    public void setFatura(Fatura fatura) {
-        this.fatura = fatura;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Locacao locacao = (Locacao) o;
-        return id.equals(locacao.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

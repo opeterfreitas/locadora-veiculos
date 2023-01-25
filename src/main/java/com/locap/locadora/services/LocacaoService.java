@@ -6,7 +6,7 @@ import com.locap.locadora.domain.enums.Status;
 import com.locap.locadora.repositories.LocacaoRepository;
 import com.locap.locadora.services.exceptions.DataIntegrityViolationException;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,17 +15,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class LocacaoService {
 
-    @Autowired
-    private LocacaoRepository repository;
-    @Autowired
-    private VendedorService vendedorService;
-    @Autowired
-    private ClienteService clienteService;
-    @Autowired
-    private VeiculoService veiculoService;
+    private final LocacaoRepository repository;
+    private final VendedorService vendedorService;
+    private final ClienteService clienteService;
+    private final VeiculoService veiculoService;
 
     public Locacao findById(Integer id) {
         Optional<Locacao> obj = repository.findById(id);

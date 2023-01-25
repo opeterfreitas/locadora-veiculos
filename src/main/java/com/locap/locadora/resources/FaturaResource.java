@@ -3,23 +3,23 @@ package com.locap.locadora.resources;
 import com.locap.locadora.domain.Fatura;
 import com.locap.locadora.domain.dtos.FaturaDTO;
 import com.locap.locadora.services.FaturaService;
-import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/faturas")
 public class FaturaResource {
 
-    @Autowired
-    private FaturaService service;
+    private final FaturaService service;
 
     @GetMapping("/{id}")
     public ResponseEntity<FaturaDTO> findById(@PathVariable Integer id) {

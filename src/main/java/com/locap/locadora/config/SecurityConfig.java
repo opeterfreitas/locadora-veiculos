@@ -3,7 +3,7 @@ package com.locap.locadora.config;
 import com.locap.locadora.security.JWTAuthenticationFilter;
 import com.locap.locadora.security.JWTAuthorizationFilter;
 import com.locap.locadora.security.JWTUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,18 +20,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+@RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
 
-    @Autowired
-    private Environment env;
-    @Autowired
-    private JWTUtil jwtUtil;
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final Environment env;
+    private final JWTUtil jwtUtil;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

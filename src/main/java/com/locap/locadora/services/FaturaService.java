@@ -4,18 +4,18 @@ import com.locap.locadora.domain.Fatura;
 import com.locap.locadora.domain.dtos.FaturaDTO;
 import com.locap.locadora.repositories.FaturaRepository;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class FaturaService {
 
-    @Autowired
-    private FaturaRepository repository;
+    private final FaturaRepository repository;
 
     public Fatura findById(Integer id) {
         Optional<Fatura> obj = repository.findById(id);

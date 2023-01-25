@@ -3,23 +3,23 @@ package com.locap.locadora.resources;
 import com.locap.locadora.domain.Veiculo;
 import com.locap.locadora.domain.dtos.VeiculoDTO;
 import com.locap.locadora.services.VeiculoService;
-import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoResource {
 
-    @Autowired
-    private VeiculoService service;
+    private final VeiculoService service;
 
     @GetMapping("/{id}")
     public ResponseEntity<VeiculoDTO> findById(@PathVariable Integer id) {

@@ -3,7 +3,7 @@ package com.locap.locadora.resources;
 import com.locap.locadora.domain.Locacao;
 import com.locap.locadora.domain.dtos.LocacaoDTO;
 import com.locap.locadora.services.LocacaoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +14,12 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/locacoes")
 public class LocacaoResource {
 
-    @Autowired
-    private LocacaoService service;
+    private final LocacaoService service;
 
     @GetMapping("/{id}")
     public ResponseEntity<LocacaoDTO> findById(@PathVariable Integer id) {
@@ -35,14 +35,14 @@ public class LocacaoResource {
     }
 
     @GetMapping("/abertos")
-    public ResponseEntity<List<LocacaoDTO>> findAllOpen(){
+    public ResponseEntity<List<LocacaoDTO>> findAllOpen() {
         List<Locacao> list = service.findAllOpen();
         List<LocacaoDTO> listDTO = list.stream().map(obj -> new LocacaoDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
 
     @GetMapping("/fechados")
-    public ResponseEntity<List<LocacaoDTO>> findAllClose(){
+    public ResponseEntity<List<LocacaoDTO>> findAllClose() {
         List<Locacao> list = service.findAllClose();
         List<LocacaoDTO> listDTO = list.stream().map(obj -> new LocacaoDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

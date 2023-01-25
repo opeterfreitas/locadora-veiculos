@@ -3,23 +3,23 @@ package com.locap.locadora.resources;
 import com.locap.locadora.domain.Vendedor;
 import com.locap.locadora.domain.dtos.VendedorDTO;
 import com.locap.locadora.services.VendedorService;
-import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/vendedores")
 public class VendedorResource {
 
-    @Autowired
-    private VendedorService service;
+    private final VendedorService service;
 
     @GetMapping("/{id}")
     public ResponseEntity<VendedorDTO> findById(@PathVariable Integer id) {

@@ -5,18 +5,18 @@ import com.locap.locadora.domain.dtos.VeiculoDTO;
 import com.locap.locadora.repositories.VeiculoRepository;
 import com.locap.locadora.services.exceptions.DataIntegrityViolationException;
 import com.locap.locadora.services.exceptions.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class VeiculoService {
 
-    @Autowired
-    private VeiculoRepository repository;
+    private final VeiculoRepository repository;
 
     public Veiculo findById(Integer id) {
         Optional<Veiculo> obj = repository.findById(id);
