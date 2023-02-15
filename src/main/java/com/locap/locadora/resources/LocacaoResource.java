@@ -5,7 +5,6 @@ import com.locap.locadora.domain.dtos.LocacaoDTO;
 import com.locap.locadora.services.LocacaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -48,7 +47,6 @@ public class LocacaoResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<LocacaoDTO> create(@RequestBody @Valid LocacaoDTO objDTO) {
         Locacao obj = service.create(objDTO);
@@ -56,14 +54,12 @@ public class LocacaoResource {
         return ResponseEntity.created(uri).build();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<LocacaoDTO> update(@PathVariable Integer id, @RequestBody @Valid LocacaoDTO objDTO) {
         Locacao newObj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new LocacaoDTO(newObj));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<LocacaoDTO> delete(@PathVariable Integer id) {
         service.delete(id);

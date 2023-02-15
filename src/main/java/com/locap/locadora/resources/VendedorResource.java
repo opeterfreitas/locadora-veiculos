@@ -5,7 +5,6 @@ import com.locap.locadora.domain.dtos.VendedorDTO;
 import com.locap.locadora.services.VendedorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -34,7 +33,6 @@ public class VendedorResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<VendedorDTO> create(@Valid @RequestBody VendedorDTO objDTO) {
         Vendedor newObj = service.create(objDTO);
@@ -42,14 +40,12 @@ public class VendedorResource {
         return ResponseEntity.created(uri).build();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<VendedorDTO> update(@PathVariable Integer id, @Valid @RequestBody VendedorDTO objDTO) {
         Vendedor obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new VendedorDTO(obj));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<VendedorDTO> delete(@PathVariable Integer id) {
         service.delete(id);
